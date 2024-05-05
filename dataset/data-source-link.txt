@@ -6,4 +6,8 @@
 
 - pharmaceutical spending: https://data.oecd.org/healthres/pharmaceutical-spending.htm
 
-- Health Spending: https://data.oecd.org/healthres/health-spending.htm#indicator-chart
+- Health Spending: https://data-explorer.oecd.org/vis?tm=health%20spending&pg=0&hc[Measure]=Expenditure&snb=76&vw=ov&df[ds]=dsDisseminateFinalDMZ&df[id]=DSD_SHA%40DF_SHA&df[ag]=OECD.ELS.HD&df[vs]=1.0&pd=2015%2C&dq=.A.EXP_HEALTH.PT_B1GQ._T.._T.._T...&ly[rw]=REF_AREA&ly[cl]=TIME_PERIOD&to[TIME_PERIOD]=false
+
+- Covid Death: https://ourworldindata.org/covid-deaths
+
+- Covid Vaccination: https://ourworldindata.org/covid-vaccinations
