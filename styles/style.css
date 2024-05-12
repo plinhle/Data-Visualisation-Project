@@ -158,3 +158,32 @@ footer span{
 .btn:hover {
     background-color: #567f53; /* Lighter green for hover */
 }
+
+#chart1-section h2, #chart2-section h2, #chart3-section h2 {
+    align-items: center;
+    text-align: center;
+}
+
+#chart1-section p, #chart2-section p, #chart3-section p {
+    text-align: center;
+    font-size: 0.8em; /* Smaller font size */
+}
+
+
+@media (max-width: 768px) {
+    .chart1-section {
+        width:100%;
+        height: auto;
+    }
+
+    svg {
+        width: 100%; 
+        height:auto;
+    }
+}
+
+.chart1-section svg {
+    width: 100%;
+    height: auto;
+}
+
