@@ -1,6 +1,6 @@
-d3.json("exchangeRates2015.json").then(function(rates) {
+d3.json("./script/exchangeRates2015.json").then(function(rates) {
     // Convert the currency
-    d3.json('healthExpenditure.json').then(function(data) {
+    d3.json('./script/healthExpenditure.json').then(function(data) {
         const convertedData = data.map(country => {
             const rate = rates[country.Currency];
             ['2019', '2020', '2021', '2022'].forEach(year => {
