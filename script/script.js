@@ -125,7 +125,15 @@ function BarLineChart(data) {
         .attr("y", d => yExpenditure(d.expenditure))
         .attr("width", x.bandwidth())
         .attr("height", d => height - yExpenditure(d.expenditure))
-        .attr("fill", "#F1BAA1");
+        .attr("fill", "#F1BAA1")
+        .on("mouseover", function(event, d) { //add mouseover effect
+          d3.select(this)
+              .attr("fill", "#ffffff");
+          addTooltip(this, d);
+      })
+      .on("mouseout", function() {    //mouseover effect
+          d3.select("#tooltip").remove();
+      });
     
     // Line
     const line = d3.line()
