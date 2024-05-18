@@ -102,7 +102,7 @@ function BarLineChart(data) {
 
     // Y axis for ranking
     const yRank = d3.scaleLinear()
-      .domain([d3.max(data, d => d.rank) + 1, 1]) //+1 to lower the line
+      .domain([d3.max(data, d => d.rank) + 2, 1]) //+1 to lower the line
       .range([ 0, height ]);
     svg.append("g")
       .attr("transform", `translate(${width}, 0)`)
@@ -117,7 +117,7 @@ function BarLineChart(data) {
       .text("Rank");;
 
     // Bars
-    svg.selectAll("mybar")
+    svg.selectAll(".bar")
       .data(data)
       .enter()
       .append("rect")
@@ -125,12 +125,41 @@ function BarLineChart(data) {
         .attr("y", d => yExpenditure(d.expenditure))
         .attr("width", x.bandwidth())
         .attr("height", d => height - yExpenditure(d.expenditure))
-        .attr("fill", "#F1BAA1");
+        .attr("fill", "#F1BAA1")
+        .on("mouseover", function(event, d) { //add mouseover effect
+          d3.select(this)
+            .attr("fill", "#ffffff"); // change the color of the bar on hover
+          d3.select(".tooltip") 
+            .html("Expenditure: $" + d.expenditure + "M<br>Rank: " + d.rank)
+            .style("visibility", "visible") // display the tooltip when hover over
+            .style("top", (event.pageY) + "px") // position the tooltip
+            .style("left", (event.pageX) + "px");
+        })
+        .on("mousemove", function(event) {
+          d3.select(".tooltip")
+            .style("top", (event.pageY - 10) + "px")
+            .style("left", (event.pageX +10) + "px");
+        })
+        .on("mouseout", function() {    //mouseover effect
+          d3.select(this)
+            .attr("fill", "#F1BAA1"); // reset the color of the bar on mouse out
+          d3.select(".tooltip")
+            .style("visibility", "hidden"); // hide the tooltip on mouse out
+      });
     
     // Line
     const line = d3.line()
       .x(d => x(d.year) + x.bandwidth() / 2)
       .y(d => yRank(d.rank));
+
+    // Extend the line across the chart
+    svg.append("line")
+      .attr("x1", x(data[0].year))
+      .attr("y1", yRank(data[0].rank))
+      .attr("x2", x(data[data.length - 1].year) + x.bandwidth())
+      .attr("y2", yRank(data[data.length - 1].rank))
+      .attr("stroke", "red")
+      .attr("stroke-width", 1.5);
 
     svg.append("path")
       .datum(data)
@@ -143,9 +172,19 @@ function BarLineChart(data) {
       .data(data)
       .enter().append("circle")
       .attr("class", "dot")
-      .attr("class", "dot")
       .attr("cx", d => x(d.year) + x.bandwidth() / 2)
       .attr("cy", d => yRank(d.rank))
       .attr("r", 5)
       .style("fill", "red");
+
+    // Tooltip
+    var tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .style("background-color", "white")
+        .style("border", "1px solid #000")
+        .style("padding", "8px");
+
+      
 };
