@@ -1,3 +1,4 @@
+// Load data
 d3.json("./script/exchangeRates2015.json").then(function(rates) {
     // Convert the currency
     d3.json("./script/healthExpenditure.json").then(function(data) {
@@ -23,6 +24,24 @@ d3.json("./script/exchangeRates2015.json").then(function(rates) {
     }).catch(error => {
       console.error('Error fetching or processing data:', error);
     });
+});
+
+// Load data and GeoJSON
+d3.json("./script/australian-states.json").then(function(geoData) {
+  d3.csv("./dataset/COVID-19-deaths-lga.csv").then(function(deathData) {
+    const deathsByRegion = {};
+    deathData.forEach(d => {
+      deathsByRegion[d.States] = +d.Total.replace(/,/g, ''); // Remove , and convert to number
+    });
+    
+    // Create map
+    drawMap(geoData, deathsByRegion);
+    // Handle click events on the map
+    function onSelectedLGA(lga) {
+      const regionalData = data.filter(d => d.region === lga);
+      updateBarChart(regionalData);
+    }
+  });
 });
 
 // Calculate Australia's rank among OECD countries
@@ -89,6 +108,7 @@ function BarLineChart(data) {
     const yExpenditure = d3.scaleLinear()
       .domain([0, d3.max(data, d => d.expenditure)])
       .range([ height, 0]);
+
     svg.append("g")
       .call(d3.axisLeft(yExpenditure))
     svg.append("text") // Add label
@@ -185,6 +205,56 @@ function BarLineChart(data) {
         .style("background-color", "white")
         .style("border", "1px solid #000")
         .style("padding", "8px");
-
-      
 };
+
+function drawMap(geoData, deathsByRegion) {
+
+  console.log("GeoData:", geoData);  // Debug: Log the geoData to check its structure
+  console.log("Deaths by Region:", deathsByRegion);  // Debug: Log the processed deaths data
+  const width = 960;
+  const height = 500;
+  const minDeaths = d3.min(Object.values(deathsByRegion));
+  const maxDeaths = d3.max(Object.values(deathsByRegion));
+  console.log("Min deaths:", minDeaths);
+  console.log("Max deaths:", maxDeaths);
+
+  const colorScale = d3.scaleQuantize()
+                      .domain([minDeaths, maxDeaths])
+                      .range(['#eedbff', '#c2a5df', '#9772be', '#8159af', '#54278f']);
+
+  const projection = d3.geoMercator()
+                        .fitSize([width, height], geoData);
+
+  const path = d3.geoPath()
+                  .projection(projection);
+
+  const svg = d3.select("#chart2").append("svg")
+                .attr("width", width)
+                .attr("height", height);
+
+  svg.selectAll('path')
+    .data(geoData.features)
+    .enter()
+    .append("path")
+      .attr("d", path)
+      .attr("fill", d => {
+        const deaths = deathsByRegion[d.properties.STATE_NAME];
+        //return deaths ? colorScale(deaths) : '#000'; // Use a default color if no data exists
+
+        const color = deaths ? colorScale(deaths) : '#000'; // Use a default color if no data exists
+        // Log the state name, deaths, and color for debugging
+        console.log(d.properties.STATE_NAME, "Deaths:", deaths, "Color:", color);
+        return color;
+      })
+      .on("click", function(event, d) {
+        const deaths = deathsByRegion[d.properties.STATE_NAME];
+        // Update the bar chart based on the clicked region
+        if (deaths) {
+          updateBarChart(deaths); // Only call updateBarChart if data is available
+        }
+      });
+}
+
+function updateBarChart(data) {
+
+}
