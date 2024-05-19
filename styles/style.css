@@ -107,7 +107,7 @@ footer{
 
 footer span{
     color: #445F3B;
-    font-weight: bold
+    font-weight: bold;
 }
 
 .home{
@@ -182,7 +182,7 @@ footer span{
     }
 }
 
-.chart1-section svg {
+.chart-container svg {
     width: 100%;
     height: auto;
 }

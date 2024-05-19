@@ -1,4 +1,4 @@
-// Load data
+// Load data for the 1st chart
 d3.json("./script/exchangeRates2015.json").then(function(rates) {
     // Convert the currency
     d3.json("./script/healthExpenditure.json").then(function(data) {
@@ -26,23 +26,49 @@ d3.json("./script/exchangeRates2015.json").then(function(rates) {
     });
 });
 
-// Load data and GeoJSON
+// Load data and GeoJSON for the 2nd chart
 d3.json("./script/australian-states.json").then(function(geoData) {
   d3.csv("./dataset/COVID-19-deaths-lga.csv").then(function(deathData) {
+    // Process death data for the charts
     const deathsByRegion = {};
     deathData.forEach(d => {
-      deathsByRegion[d.States] = +d.Total.replace(/,/g, ''); // Remove , and convert to number
+      deathsByRegion[d.STATE_NAME] = +d.Total.replace(/,/g, ''); // Remove , and convert to number
+      deathsByRegion[d.STATE_NAME] = {
+        '2021': +d['2021'].replace(/,/g, ''),
+        '2022': +d['2022'].replace(/,/g, ''),
+        '2023': +d['2023'].replace(/,/g, ''),
+        '2024': +d['2024'].replace(/,/g, ''),
+        'Total': +d.Total.replace(/,/g, '')  // Remove commas
+      };
     });
-    
-    // Create map
-    drawMap(geoData, deathsByRegion);
-    // Handle click events on the map
-    function onSelectedLGA(lga) {
-      const regionalData = data.filter(d => d.region === lga);
-      updateBarChart(regionalData);
-    }
+
+    d3.csv("./dataset/vaccination.csv").then(function(vaccinationData) {
+      // Process vaccination data
+      const vaccinationsByRegion = {};
+      vaccinationData.forEach(d => {
+        vaccinationsByRegion[d.STATE_NAME] = {
+          '2021': +d['2021'],
+          '2022': +d['2022'],
+          '2023': +d['2023'],
+          '2024': +d['2024']
+        };
+      });
+      
+      // Create map
+      drawMap(geoData, deathsByRegion, vaccinationsByRegion);
+
+      //Default Australia data for the two-sided bar chart
+      const defaultData = combineData(deathsByRegion, vaccinationsByRegion,'Aus');
+      drawBarChart(defaultData);
+      // // Handle click events on the map
+      // function onSelectedLGA(lga) {
+      //   const stateData = data.filter(d => d.region === lga);
+      //   updateBarChart(stateData);
+      // }
+    });
   });
 });
+
 
 // Calculate Australia's rank among OECD countries
 function calculateRankings(data) {
@@ -207,14 +233,15 @@ function BarLineChart(data) {
         .style("padding", "8px");
 };
 
-function drawMap(geoData, deathsByRegion) {
+// Draw choropleth map
+function drawMap(geoData, deathsByRegion, vaccinationsByRegion) {
 
   console.log("GeoData:", geoData);  // Debug: Log the geoData to check its structure
   console.log("Deaths by Region:", deathsByRegion);  // Debug: Log the processed deaths data
   const width = 960;
   const height = 500;
-  const minDeaths = d3.min(Object.values(deathsByRegion));
-  const maxDeaths = d3.max(Object.values(deathsByRegion));
+  const minDeaths = d3.min(Object.values(deathsByRegion).map(d => d.Total));
+  const maxDeaths = d3.max(Object.values(deathsByRegion).map(d => d.Total));
   console.log("Min deaths:", minDeaths);
   console.log("Max deaths:", maxDeaths);
 
@@ -238,23 +265,169 @@ function drawMap(geoData, deathsByRegion) {
     .append("path")
       .attr("d", path)
       .attr("fill", d => {
-        const deaths = deathsByRegion[d.properties.STATE_NAME];
-        //return deaths ? colorScale(deaths) : '#000'; // Use a default color if no data exists
+        const deaths = deathsByRegion[d.properties.STATE_NAME].Total;
+        return deaths ? colorScale(deaths) : '#000'; // Use a default color if no data exists
 
-        const color = deaths ? colorScale(deaths) : '#000'; // Use a default color if no data exists
+        // const color = deaths ? colorScale(deaths) : '#000'; // Use a default color if no data exists
         // Log the state name, deaths, and color for debugging
-        console.log(d.properties.STATE_NAME, "Deaths:", deaths, "Color:", color);
-        return color;
+        // console.log(d.properties.STATE_NAME, "Deaths:", deaths, "Color:", color);
+        // return color;
       })
       .on("click", function(event, d) {
-        const deaths = deathsByRegion[d.properties.STATE_NAME];
+        const stateData = combineData(deathsByRegion, vaccinationsByRegion, d.properties.STATE_NAME)
+
+        console.log("State Data for " + d.properties.STATE_NAME + ":", stateData); // Debugging
+        // const deaths = deathsByRegion[d.properties.STATE_NAME];
         // Update the bar chart based on the clicked region
-        if (deaths) {
-          updateBarChart(deaths); // Only call updateBarChart if data is available
-        }
+        updateBarChart(stateData);
       });
 }
 
-function updateBarChart(data) {
+// Combine death and vaccination data for the bar chart
+function combineData(deathsByRegion, vaccinationsByRegion, state) {
+  const years = ['2021', '2022', '2023', '2024'];
+  return years.map(year => ({
+    year: year,
+    deaths: deathsByRegion[state][year],
+    vaccinations: vaccinationsByRegion[state][year]
+  }));
+}
 
+// Draw the bar chart
+function drawBarChart(data) {
+  const margin = {top: 30, right: 50, bottom: 70, left: 50},
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+  const svg = d3.select("#chart3").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  const maxDeaths = d3.max(data, d => d.deaths);
+  const maxVaccinations = d3.max(data, d => d.vaccinations);
+  const maxVal = Math.max(maxDeaths, maxVaccinations);
+
+  const x = d3.scaleBand()
+              .domain(data.map(d => d.year))
+              .range([0, width])
+              .padding(0.2);
+
+  const y = d3.scaleLinear()
+              .domain([0, maxVal])
+              .range([height, 0]);
+
+  const yLeft = d3.scaleLinear()
+                  .domain([0, maxDeaths])
+                  .range([height, 0]);
+
+  const yRight = d3.scaleLinear()
+                    .domain([0, maxVal])
+                    .range([height, 0]);
+
+  svg.append("g")
+     .attr("class", "x axis")
+     .attr("transform", "translate(0," + height + ")")
+     .call(d3.axisBottom(x));
+
+  svg.append("g")
+     .attr("class", "y axis left")
+     .call(d3.axisLeft(yLeft));
+
+  svg.append("g")
+     .attr("class", "y axis right")
+     .attr("transform", "translate(" + width + " ,0)")   
+     .call(d3.axisRight(yRight));
+
+  // Bars for deaths
+  svg.selectAll(".bar.deaths")
+     .data(data)
+     .enter().append("rect")
+     .attr("class", "bar deaths")
+     .attr("x", d => x(d.year))
+     .attr("y", d => yLeft(d.deaths))
+     .attr("width", x.bandwidth() / 2)
+     .attr("height", d => height - yLeft(d.deaths))
+     .attr("fill", "#8A75BF");
+
+  // Bars for vaccinations
+  svg.selectAll(".bar.vaccinations")
+     .data(data)
+     .enter().append("rect")
+     .attr("class", "bar vaccinations")
+     .attr("x", d => x(d.year) + x.bandwidth() / 2)
+     .attr("y", d => yRight(d.vaccinations))
+     .attr("width", x.bandwidth() / 2)
+     //.attr("height", d => height - yRight(d.vaccinations))
+     .attr("height", d => {
+      console.log("Vaccinations bar:", d.vaccinations, height - y(d.vaccinations));
+      return height - y(d.vaccinations);
+    })
+     .attr("fill", "#D2EDB5");
+}
+
+
+// function updateBarChart(data) {
+//   // Remove the existing SVG if any
+//   d3.select("#chart3").select("svg").remove();
+//   drawBarChart(data);
+// }
+
+// Update bar chart when clicking
+function updateBarChart(data) {
+  const margin = {top: 30, right: 50, bottom: 70, left: 50},
+        width = 960 - margin.left - margin.right,
+        height = 500 - margin.top - margin.bottom;
+
+  const maxDeaths = d3.max(data, d => d.deaths);
+  const maxVaccinations = d3.max(data, d => d.vaccinations);
+  const maxVal = Math.max(maxDeaths, maxVaccinations);
+
+  const x = d3.scaleBand()
+              .domain(data.map(d => d.year))
+              .range([0, width])
+              .padding(0.2);
+
+  const yLeft = d3.scaleLinear()
+                  .domain([0, maxDeaths])
+                  .range([height, 0]);
+
+  const yRight = d3.scaleLinear()
+                    .domain([0, maxVal])
+                    .range([height, 0]);
+
+  const svg = d3.select("#chart3").select("svg").select("g");
+
+  svg.selectAll(".bar.deaths")
+     .data(data)
+     .transition()
+     .duration(750)
+     .attr("x", d => x(d.year))
+     .attr("y", d => yLeft(d.deaths))
+     .attr("height", d => height - yLeft(d.deaths));
+
+  svg.selectAll(".bar.vaccinations")
+     .data(data)
+     .transition()
+     .duration(750)
+     .attr("x", d => x(d.year) + x.bandwidth() / 2)
+     .attr("y", d => yRight(d.vaccinations))
+     .attr("height", d => height - yRight(d.vaccinations));
+
+  // Update the axes + add transitions
+  svg.select(".x.axis")
+     .transition()
+     .duration(750)
+     .call(d3.axisBottom(x));
+
+  svg.select(".y.axis.left")
+     .transition()
+     .duration(750)
+     .call(d3.axisLeft(yLeft));
+
+  svg.select(".y.axis.right")
+     .transition()
+     .duration(750)
+     .call(d3.axisRight(yRight));
 }
