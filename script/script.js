@@ -145,10 +145,10 @@ function BarLineChart(data) {
         .attr("y", d => yExpenditure(d.expenditure))
         .attr("width", x.bandwidth())
         .attr("height", d => height - yExpenditure(d.expenditure))
-        .attr("fill", "#F1BAA1")
+        .attr("fill", "#F9F1DB")
         .on("mouseover", function(event, d) { //add mouseover effect
           d3.select(this)
-            .attr("fill", "#ffffff"); // change the color of the bar on hover
+            .attr("fill", "#44AA99"); // change the color of the bar on hover
           d3.select(".tooltip") 
             .html("Expenditure: $" + d.expenditure + "M<br>Rank: " + d.rank)
             .style("visibility", "visible") // display the tooltip when hover over
@@ -162,7 +162,7 @@ function BarLineChart(data) {
         })
         .on("mouseout", function() {    //mouseover effect
           d3.select(this)
-            .attr("fill", "#F1BAA1"); // reset the color of the bar on mouse out
+            .attr("fill", "#F9F1DB"); // reset the color of the bar on mouse out
           d3.select(".tooltip")
             .style("visibility", "hidden"); // hide the tooltip on mouse out
       });
@@ -178,13 +178,13 @@ function BarLineChart(data) {
       .attr("y1", yRank(data[0].rank))
       .attr("x2", x(data[data.length - 1].year) + x.bandwidth())
       .attr("y2", yRank(data[data.length - 1].rank))
-      .attr("stroke", "red")
+      .attr("stroke", "#FEB8BB")
       .attr("stroke-width", 1.5);
 
     svg.append("path")
       .datum(data)
       .attr("fill", "none")
-      .attr("stroke", "red")
+      .attr("stroke", "#FEB8BB")
       .attr("stroke-width", 1.5)
       .attr("d", line);
 
@@ -195,7 +195,7 @@ function BarLineChart(data) {
       .attr("cx", d => x(d.year) + x.bandwidth() / 2)
       .attr("cy", d => yRank(d.rank))
       .attr("r", 5)
-      .style("fill", "red");
+      .style("fill", "#F05F80");
 
     // Tooltip
     var tooltip = d3.select("body").append("div")
@@ -220,8 +220,8 @@ function drawMap(geoData, deathsByRegion) {
 
   const colorScale = d3.scaleQuantize()
                       .domain([minDeaths, maxDeaths])
-                      .range(['#eedbff', '#c2a5df', '#9772be', '#8159af', '#54278f']);
-
+                      .range(['#eedbff', '#dbc3f1', '#c2a5df', '#b595d4', '#a27ec6', '#8159af', '#7c52ab', '#683d9d', '#54278f']);
+  
   const projection = d3.geoMercator()
                         .fitSize([width, height], geoData);
 
