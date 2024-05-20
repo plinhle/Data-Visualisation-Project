@@ -293,7 +293,7 @@ function combineData(deathsByRegion, vaccinationsByRegion, state) {
   }));
 }
 
-// Draw the bar chart
+// Draw the two-side bar chart
 function drawBarChart(data) {
   const margin = {top: 30, right: 50, bottom: 70, left: 50},
         width = 960 - margin.left - margin.right,
@@ -309,6 +309,7 @@ function drawBarChart(data) {
   const maxVaccinations = d3.max(data, d => d.vaccinations);
   const maxVal = Math.max(maxDeaths, maxVaccinations);
 
+  // x-axis for years
   const x = d3.scaleBand()
               .domain(data.map(d => d.year))
               .range([0, width])
@@ -318,10 +319,12 @@ function drawBarChart(data) {
               .domain([0, maxVal])
               .range([height, 0]);
 
+  // Left y-axis for Death data
   const yLeft = d3.scaleLinear()
                   .domain([0, maxDeaths])
                   .range([height, 0]);
 
+  // Right y-axis for Vaccination data
   const yRight = d3.scaleLinear()
                     .domain([0, maxVal])
                     .range([height, 0]);
@@ -384,21 +387,25 @@ function updateBarChart(data) {
   const maxVaccinations = d3.max(data, d => d.vaccinations);
   const maxVal = Math.max(maxDeaths, maxVaccinations);
 
+  // x-axis for years
   const x = d3.scaleBand()
               .domain(data.map(d => d.year))
               .range([0, width])
               .padding(0.2);
 
+  // Left y-axis for Death data
   const yLeft = d3.scaleLinear()
                   .domain([0, maxDeaths])
                   .range([height, 0]);
 
+  // Right y-axis for Vaccination data
   const yRight = d3.scaleLinear()
                     .domain([0, maxVal])
                     .range([height, 0]);
 
   const svg = d3.select("#chart3").select("svg").select("g");
-
+  
+  // Death bar transition 
   svg.selectAll(".bar.deaths")
      .data(data)
      .transition()
@@ -407,6 +414,7 @@ function updateBarChart(data) {
      .attr("y", d => yLeft(d.deaths))
      .attr("height", d => height - yLeft(d.deaths));
 
+  // Vaccination bar transition
   svg.selectAll(".bar.vaccinations")
      .data(data)
      .transition()
@@ -415,7 +423,7 @@ function updateBarChart(data) {
      .attr("y", d => yRight(d.vaccinations))
      .attr("height", d => height - yRight(d.vaccinations));
 
-  // Update the axes + add transitions
+  // Update the axes + add transitions when clicking regions
   svg.select(".x.axis")
      .transition()
      .duration(750)
