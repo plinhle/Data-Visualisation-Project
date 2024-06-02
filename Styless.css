@@ -1,0 +1,41 @@
+/* Container styling to align map and bar chart side by side */
+#container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/* Add border to map paths */
+path {
+    stroke: #000;
+    stroke-width: 1.5;
+    fill: none;
+}
+
+/* Tooltip styling */
+.tooltip {
+    position: absolute;
+    background-color: rgba(210, 210, 210, 1);
+    padding: 5px;
+    border-radius: 5px;
+    pointer-events: none;
+}
+
+/* State label styling */
+.state-label {
+    fill: White;
+    font-size: 14px; /* Adjust font size */
+    font-weight: bold; /* Make text bold */
+}
+
+/* Legend title styling */
+.legend-title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Legend label styling */
+.legend-label {
+    fill: black;
+    font-size: 14px;
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Data Vis">
+    <meta name="keywords" content="HTML, CSS, D3">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="StateCodes.js"></script>
+    <link rel="stylesheet" href="Styless.css">
+</head>    
+<body>
+<h1>Australia COVID-19 Death</h1>
+<div id="tooltip" class="tooltip" style="display: none;"></div>
+<div id="container">
+    <div id="map"></div>
+    <div id="bar-chart"></div>
+</div>
+<script>
+    var w = 800;
+    var h = 800;
+
+    var svg = d3.select("#map")
+                .append("svg")
+                .attr("width", w)
+                .attr("height", h)
+
+    var colorScaleOrdinal = d3.scaleThreshold()
+                              .domain([0, 1000, 2000, 3000, 4000, 5000, 6000])
+                              .range(["#fee5d9", "#fcbba1", "#fc9272", "#fb6a4a", "#ef3b2c", "#cb181d", "#a50f15", "#67000d"]);
+
+    var projection = d3.geoMercator()
+                       .center([135, -29.5]) 
+                       .translate([w / 2, h / 2])
+                       .scale(900);
+
+    var path = d3.geoPath().projection(projection);
+
+    // Load the CSV data
+    d3.csv("deaths.csv").then(function(data) {
+        var deathTotals = {};
+        var stateData = {};
+        data.forEach(function(d) {
+            deathTotals[d.States] = +d.Total; // Convert total deaths to number
+            stateData[d.States] = d;
+        });
+
+        // Load the GeoJSON data
+        d3.json("aus.json").then(function(json) {
+            // Draw the map using path generator
+            svg.selectAll("path")
+               .data(json.features)
+               .enter()
+               .append("path")
+               .attr("d", path)
+               .style("fill", function(d) {
+                   var stateName = d.properties.name;
+                   var stateCode = StateCodes[stateName];
+                   return colorScaleOrdinal(deathTotals[stateCode]);
+               })
+               .on("mouseover", function(event, d) {
+                    d3.select(this)
+                      .transition()
+                      .duration(200)
+                      .style("fill", "black");
+                    showTooltip(event, d);
+                    updateBarChart(stateData[StateCodes[d.properties.name]]);
+               })
+               .on("mouseout", function(d) {
+                    d3.select(this)
+                      .transition()
+                      .duration(200)
+                      .style("fill", function(d) {
+                          var stateName = d.properties.name;
+                          var stateCode = StateCodes[stateName];
+                          return colorScaleOrdinal(deathTotals[stateCode]);
+                      });
+                    hideTooltip();
+                    removeBarChart();
+               });
+
+            // Add text labels for state short names
+            svg.selectAll("text")
+               .data(json.features)
+               .enter()
+               .append("text")
+               .attr("x", function(d) { return path.centroid(d)[0]; })
+               .attr("y", function(d) { return path.centroid(d)[1]; })
+               .attr("text-anchor", "middle")
+               .attr("dy", ".35em")
+               .text(function(d) { return StateCodes[d.properties.name]; })
+               .attr("class", "state-label");
+
+            // Create the legend group
+            var legend = svg.append("g")
+                            .attr("transform", "translate(20," + (h - 180) + ")");
+
+            // Add legend title
+            legend.append("text")
+                  .attr("x", 0)
+                  .attr("y", -10)
+                  .attr("class", "legend-title")
+                  .text("Death Cases");
+
+            // Add legend color rectangles
+            legend.selectAll("rect")
+                  .data(colorScaleOrdinal.range().slice(1))
+                  .enter()
+                  .append("rect")
+                  .attr("x", 0)
+                  .attr("y", function(d, i) { return i * 20; })
+                  .attr("width", 20)
+                  .attr("height", 20)
+                  .style("fill", function(d) { return d; });
+
+            // Add legend text
+            legend.selectAll("text.legend-label")
+                  .data(colorScaleOrdinal.domain())
+                  .enter()
+                  .append("text")
+                  .attr("x", 30)
+                  .attr("y", function(d, i) { return i * 20 + 10; })
+                  .attr("dy", ".35em")
+                  .attr("class", "legend-label")
+                  .text(function(d, i) {
+                      if (i === colorScaleOrdinal.domain().length - 1) {
+                          return d + "+";
+                      } else {
+                          return d + " - " + (colorScaleOrdinal.domain()[i + 1] - 1);
+                      }
+                  });
+        });
+
+        function showTooltip(event, d) {
+            var stateName = d.properties.name;
+            var stateCode = StateCodes[stateName];
+            var totalDeaths = deathTotals[stateCode];
+
+            var tooltip = d3.select("#tooltip");
+            tooltip.html(stateName + "<br/>" + "Total Deaths: " + totalDeaths)
+                   .style("left", (event.pageX + 10) + "px")
+                   .style("top", (event.pageY - 28) + "px")
+                   .style("display", "block");
+        }
+
+        function hideTooltip() {
+            d3.select("#tooltip").style("display", "none");
+        }
+
+        // Function to update the bar chart
+        function updateBarChart(state) {
+            var years = [ "2021", "2022", "2023", "2024"];
+            var values = years.map(function(year) { return +state[year]; });
+
+            var barWidth = 50;
+            var barHeight = 300;
+            var margin = {top: 20, right: 30, bottom: 40, left: 40};
+
+            var xScale = d3.scaleBand()
+                           .domain(years)
+                           .range([0, years.length * barWidth])
+                           .padding(0.1);
+
+            var yScale = d3.scaleLinear()
+                           .domain([0, 4000]) // Fix y-axis domain from 0 to 4000
+                           .range([barHeight, 0]);
+
+            var svgBar = d3.select("#bar-chart")
+                           .append("svg")
+                           .attr("width", years.length * barWidth + margin.left + margin.right)
+                           .attr("height", barHeight + margin.top + margin.bottom)
+                           .append("g")
+                           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            svgBar.selectAll("rect")
+                  .data(values)
+                  .enter()
+                  .append("rect")
+                  .attr("x", function(d, i) { return xScale(years[i]); })
+                  .attr("y", function(d) { return yScale(d); })
+                  .attr("width", xScale.bandwidth())
+                  .attr("height", function(d) { return barHeight - yScale(d); })
+                  .attr("fill", "steelblue");
+
+            svgBar.selectAll("text")
+                  .data(values)
+                  .enter()
+                  .append("text")
+                  .attr("x", function(d, i) { return xScale(years[i]) + xScale.bandwidth() / 2; })
+                  .attr("y", function(d) { return yScale(d) - 5; })
+                  .attr("text-anchor", "middle")
+                  .attr("fill", "black")
+                  .text(function(d) { return d; });
+
+            svgBar.append("g")
+                  .attr("transform", "translate(0," + barHeight + ")")
+                  .call(d3.axisBottom(xScale));
+
+            svgBar.append("g")
+                  .call(d3.axisLeft(yScale));
+        }
+
+        function removeBarChart() {
+            d3.select("#bar-chart").select("svg").remove();
+        }
+    });
+</script>
+<hr> 
+<footer style="color: blue; text-align: center; margin-top: 20px; font-size: 20px;">COS30045 Data Visualisation<br></footer>
+</body>
+</html>
