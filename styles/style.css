@@ -1,0 +1,346 @@
+/* Global styles */
+body {
+    color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll; /* Ensures the ability to scroll */
+    background-image: url('images/image1.jpg');
+    background-size: cover;
+}
+
+#background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Ensure the image stays behind the content */
+    object-fit: cover; /* Cover the entire body */
+}
+
+/* Global link styles */
+a {
+    color: #488ac9;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #567f53; /* Lighter green for hover */
+}
+
+header a.logo {
+    font-size: 24px;
+}
+
+header nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#chart3-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#bar-charts-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+}
+
+#death-bar-chart,
+#vaccination-bar-chart {
+    width: 48%;
+}
+
+.chart-title {
+    fill: white;
+    font-size: 20px;
+    text-anchor: middle;
+}
+
+/* CSS for D3 Chart */
+.axis text, .axis .tick text {
+    font-size: 16px; /* Increase the font size for axis labels */
+    fill: black !important; /* Ensure axis text is black */
+}
+
+.axis .domain, .axis line {
+    stroke: black; /* Ensure axis line is black */
+    stroke-width: 2; /* Make axis lines bolder */
+}
+
+.axis-label {
+    font-size: 18px; /* Increase the font size for axis titles */
+    fill: black !important; /* Set the axis label text color to black */
+    font-weight: bold;
+}
+
+.tooltip {
+    position: absolute;
+    visibility: hidden; /* set to hidden initially */
+    background-color: #FFFFE0; /* light yellow background color */
+    border: 1px solid #000;
+    padding: 8px;
+    font-size: 16px; /* larger font size */
+    color: black; /* black text color */
+}
+
+/* Global styles continued */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f4f4f4;
+    padding: 10px 20px;
+}
+
+.logo {
+    font-size: 24px;
+    text-decoration: none;
+    color: #445F3B;
+}
+
+.navbar a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.home {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    background: #f9f9f9;
+}
+
+.home-img img {
+    max-width: 100%;
+}
+
+.home-img img {
+    width: 100%;
+    border: 15px solid #d1243b;
+}
+
+
+.content {
+    max-width: 600px;
+}
+
+.content h3 {
+    font-size: 36px;
+    color: #333;
+}
+
+.content p {
+    font-size: 18px;
+    color: #666;
+}
+
+main {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-image: url('images/image1.jpg'); /* Path to the image relative to the CSS file */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #445F3B;
+    color: #fff;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    padding: 5px 20px; /* Reduced padding for a smaller footer */
+    color: #ffffff;
+    font-size: 1em; /* Smaller font size */
+    left: 0;
+    width: 100%;
+    border-radius: 5px; /* Rounded corners for the footer */
+    border-top: 1px solid #575757; /* Separate the footer */
+    background-color: #043144; /* Black background for footer */
+}
+
+footer span {
+    color: #445F3B;
+    font-weight: bold;
+}
+
+/* Home section */
+.home {
+    padding: 8rem 9%;
+    background-color: #043144;
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.home .home-img {
+    flex: 1 1 40%;
+}
+
+.home .home-img img {
+    width: 100%;
+}
+
+.home .content {
+    flex: 1 1 50%;
+    padding-left: 2rem;
+}
+
+.home .content h3 {
+    font-size: 3rem;
+    line-height: 1.8;
+    text-shadow: var(--text-shadow);
+    padding: 1rem 0;
+}
+
+.home .content p {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    padding: 1rem 0;
+}
+
+/* Button */
+.btn {
+    background-color: #445F3B;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #567f53;
+}
+
+/* Additional styles for specific sections */
+/* Chart sections */
+#chart1-section,
+#chart2-section,
+#chart3-section {
+    margin-bottom: 40px; /* Add margin bottom to separate sections */
+}
+
+#chart1-section h2,
+#chart2-section h2,
+#chart3-section h2 {
+    align-items: center;
+    text-align: center;
+}
+
+#chart1-section p,
+#chart2-section p,
+#chart3-section p {
+    text-align: center;
+    font-size: 0.8em; /* Smaller font size */
+}
+
+/* Centering the first chart */
+#chart1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Adjust the height as needed */
+}
+
+/* Tooltip styling */
+#tooltip {
+    position: absolute;
+    display: none;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    pointer-events: none;
+    font-size: 16px;
+}
+
+.home .content h3,
+.home .content p {
+    color: white;
+}
+
+#chart1-section h1,
+#chart2-section h1,
+#chart3-section h1 {
+    text-align: center;
+}
+
+#chart1-section h2,
+#chart2-section h2,
+#chart3-section h2 {
+    color: black;
+}
+
+#chart1,
+#death-bar-chart,
+#vaccination-bar-chart,
+#map {
+    border: 2px solid black;
+}
+
+#map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+svg {
+    display: block;
+    margin: auto;
+}
+
+/* Add background color to each section */
+#chart1-section,
+#chart2-section,
+#chart3-section,
+#data-source-section {
+    background-color: #f4f4f4;
+    padding: 20px;
+    margin-bottom: 50px;
+}
+
+
+/* Add top margin to the first section */
+#chart1-section {
+    margin-top: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(244, 244, 244, 0.8); /* Use rgba with an alpha value less than 1 */
+    padding: 10px 20px;
+}
+
+header {
+    position: fixed; /* Make the header fixed */
+    top: 0; /* Stick it to the top of the viewport */
+    width: 100%; /* Make it take the full width of the viewport */
+    z-index: 1000; /* Ensure it stays above other content */
+    background: rgba(244, 244, 244, 0.8); /* Use rgba with an alpha value less than 1 */
+    padding: 10px 20px;
+}

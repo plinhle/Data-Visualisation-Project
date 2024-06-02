@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Data Visualization Project" />
+    <meta name="keywords" content="HTML, CSS, D3, Import" />
+    <meta name="author" content="Linh Le, Andree" />
+
+    <title>Visualization</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <header>
+        <a href="#Home" class="logo"><i style="color: #445F3B;"> Healthcare</i></a>
+        <nav class="navbar">
+            <a href="#home">Home</a>
+            <a href="#chart1-section">Expenditure</a>
+            <a href="#chart2-section">Fatality</a>
+            <a href="#chart3-section">Vaccinations</a>
+        </nav>
+    </header>
+<img src="images/image1.jpg" alt="Background Image" id="background-image">
+    <section class="home" id="home">
+        <div class="home-img">
+            <img src="images/images.jpg" alt="Home Image">
+        </div>
+        <div class="content">
+            <h3>COVID-19 PANDEMIC</h3>
+            <p>Coronavirus disease spreads primarily through contact with an infected person when they cough or sneeze. It also spreads when a person touches a surface or object that has the virus on it, then touches their eyes...</p>
+        </div>
+    </section>
+
+    <main>
+        <section id="chart1-section">
+            <h2>Annual Health Expenditure of Australia from 2019 to 2022</h2>
+            <div id="chart1"></div>
+            <h1>Data Source: <a href="https://data-explorer.oecd.org/vis?tm=health%20spending&amp;pg=0&amp;hc[Measure]=Expenditure&amp;snb=76&amp;vw=ov&amp;df[ds]=dsDisseminateFinalDMZ&amp;df[id]=DSD_SHA%40DF_SHA&amp;df[ag]=OECD.ELS.HD&amp;df[vs]=1.0&amp;pd=2019%2C2022&amp;dq=.A.EXP_HEALTH.PT_B1GQ._T.._T.._T...&amp;ly[rw]=REF_AREA&amp;ly[cl]=TIME_PERIOD&amp;to[TIME_PERIOD]=false" class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1" target="_blank">OECD Health Statistics (database)</a>
+        </section>
+
+        <section id="chart2-section">
+            <h2>COVID-19 Deaths in Australia</h2>
+            <div id="map"></div>
+            <!-- Add a separate tooltip div for the map -->
+            <div id="map-tooltip" class="tooltips" style="display: none;"></div>
+            <h1>Morality Data Source: <a href="https://www.abs.gov.au/articles/covid-19-mortality-australia-deaths-registered-until-31-january-2024" class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1" target="_blank">Australian Bureau of Statistics (ABS)</a></h1>
+        </section>
+
+        <section id="chart3-section">
+            <h2>COVID-19 Deaths and Vaccinations in Australia</h2>
+            <div id="bar-charts-container">
+                <div id="death-bar-chart"></div>
+                <div id="vaccination-bar-chart"></div>
+            </div>
+            <div id="tooltip" style="display: none;"></div>
+            <h1>Data Source: <a href="https://www.health.gov.au/resources/collections/covid-19-vaccination-rollout-update?language=en" class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-2" target="_blank">Australian Government Department of Health and Aged Care</a></h1>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>
+            <a href="https://swinburne.instructure.com/courses/56073" style="color: #488ac9;">COS30045-Data Visualisation-H1</a>
+            <br>Team Anh Vu Le - Phuong Linh Le
+        </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="script/StateCodes.js"></script>
+    <script src="./script/expenditure.js"></script>
+    <script src="./script/deaths.js"></script>
+
+    <!-- Tooltip div -->
+    <div id="tooltip" style="position: absolute; background: white; padding: 5px; border: 1px solid black; display: none;"></div>
+</body>
+
+</html>
