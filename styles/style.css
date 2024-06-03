@@ -10,6 +10,11 @@ body {
     background-size: cover;
 }
 
+body, html {
+    width: 100%;
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
 #background-image {
     position: fixed;
     top: 0;
@@ -20,24 +25,46 @@ body {
     object-fit: cover; /* Cover the entire body */
 }
 
+/* Header styling */
+
+header{
+    display: flex;
+    justify-content: space-between; /* This will space out the logo and the navbar */
+    align-items: center; /* This will vertically center the logo and navbar links */
+    padding: 1rem 10%; /* Adjust padding as needed */
+    color: #E0E0E0;
+    border-bottom: 1px solid #575757; /* Separate the footer */
+}
+
+.logo {
+    color: #445F3B; /* Sets the color of the logo text */
+    font-size: 1.5em; /* Sets the size of the logo */
+    text-decoration: none; /* Removes underline from the logo */
+    display: flex;
+    align-items: center;
+}
+
+.logo i {
+    margin-right: 0.5rem; /* Adds space between the icon and text */
+}
+
+.navbar a {
+    color: #E0E0E0;
+    text-decoration: none;
+    margin: 0 10px; /* Adjust the spacing between nav links */
+    font-size: 1.1em; /* Adjust the font size as needed */
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: #445F3B; /* Changes the color when hovered */
+}
+
 /* Global link styles */
 a {
     color: #488ac9;
     text-decoration: none;
     transition: color 0.3s;
-}
-
-a:hover {
-    color: #567f53; /* Lighter green for hover */
-}
-
-header a.logo {
-    font-size: 24px;
-}
-
-header nav a {
-    color: #fff;
-    text-decoration: none;
 }
 
 #chart3-section {
@@ -91,15 +118,6 @@ header nav a {
     color: black; /* black text color */
 }
 
-/* Global styles continued */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f4f4f4;
-    padding: 10px 20px;
-}
-
 .logo {
     font-size: 24px;
     text-decoration: none;
@@ -110,6 +128,12 @@ header {
     margin: 0 10px;
     text-decoration: none;
     color: #333;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+}
+
+.navbar a:hover {
+    background-color: #212121; /* Add a background color on hover */
+    color: #fff; /* Keep text color white on hover */
 }
 
 .home {
@@ -122,26 +146,20 @@ header {
 
 .home-img img {
     max-width: 100%;
+    width: 50%;
 }
 
-.home-img img {
-    width: 100%;
-    border: 15px solid #d1243b;
+.home-img {
+    flex: 1 1 40%; /* Adjusts the width allocation for image */
 }
-
 
 .content {
     max-width: 600px;
-}
-
-.content h3 {
-    font-size: 36px;
-    color: #333;
-}
-
-.content p {
-    font-size: 18px;
-    color: #666;
+    flex: 1 1 60%; /* Adjusts the width allocation */
+    padding-left: 20px; /* Adds some padding to separate text from image */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically centers the content in the available space */
 }
 
 main {
@@ -211,12 +229,13 @@ footer span {
     line-height: 1.8;
     text-shadow: var(--text-shadow);
     padding: 1rem 0;
+    margin: 0;
 }
 
 .home .content p {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     line-height: 1.8;
-    padding: 1rem 0;
+    padding: 0;
 }
 
 /* Button */
@@ -329,18 +348,28 @@ svg {
 }
 
 header {
+    position: fixed; /* Make the header fixed */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(244, 244, 244, 0.8); /* Use rgba with an alpha value less than 1 */
-    padding: 10px 20px;
+    background: rgba(244, 244, 244, 0.8);
+    padding: 10px 31px;
+    top: 0; /* Stick it to the top of the viewport */
+    width: 96%; /* Make it take the full width of the viewport */
+    z-index: 1000; /* Ensure it stays above other content */
 }
 
-header {
-    position: fixed; /* Make the header fixed */
-    top: 0; /* Stick it to the top of the viewport */
-    width: 100%; /* Make it take the full width of the viewport */
-    z-index: 1000; /* Ensure it stays above other content */
-    background: rgba(244, 244, 244, 0.8); /* Use rgba with an alpha value less than 1 */
-    padding: 10px 20px;
+
+.btn {
+    background-color: #D1AB7D; /* Button background */
+    color: #ffffff; /* Button text color */
+    padding: 10px 20px; /* Button padding */
+    text-decoration: none; /* Removes underline from link */
+    display: inline-block; 
+    border-radius: 5px; /* Rounded corners for the button */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.btn:hover {
+    background-color: #96785B; /* Lighter green for hover */
 }

@@ -9,26 +9,31 @@
 
     <title>Visualization</title>
     <link rel="stylesheet" href="styles/style.css">
+    <script src="https://kit.fontawesome.com/8c3475ab7a.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
     <header>
-        <a href="#Home" class="logo"><i style="color: #445F3B;"> Healthcare</i></a>
+        <a href="#home" class="logo"><i class="fa-solid fa-heart-pulse" style="color: #022E66;"> Healthcare</i></a>
         <nav class="navbar">
             <a href="#home">Home</a>
             <a href="#chart1-section">Expenditure</a>
             <a href="#chart2-section">Fatality</a>
-            <a href="#chart3-section">Vaccinations</a>
         </nav>
     </header>
-<img src="images/image1.jpg" alt="Background Image" id="background-image">
+    <img src="images/image1.jpg" alt="Background Image" id="background-image">
     <section class="home" id="home">
         <div class="home-img">
-            <img src="images/images.jpg" alt="Home Image">
+            <img src="images/virus.png" alt="Home Image">
         </div>
         <div class="content">
             <h3>COVID-19 PANDEMIC</h3>
-            <p>Coronavirus disease spreads primarily through contact with an infected person when they cough or sneeze. It also spreads when a person touches a surface or object that has the virus on it, then touches their eyes...</p>
+            <p>Welcome to our COVID-19 information hub!</p>
+            <p>Explore interactive charts on healthcare expenditure, fatality rates, 
+                and vaccination progress across different regions, 
+                aiding in a deeper comprehension of the pandemic's ongoing effects.
+            </p>
+            <a href="#chart1-section" class="btn">Find out more<i class="fa-solid fa-chevron-right"></i></a>
         </div>
     </section>
 
@@ -36,6 +41,7 @@
         <section id="chart1-section">
             <h2>Annual Health Expenditure of Australia from 2019 to 2022</h2>
             <div id="chart1"></div>
+            <br>
             <h1>Data Source: <a href="https://data-explorer.oecd.org/vis?tm=health%20spending&amp;pg=0&amp;hc[Measure]=Expenditure&amp;snb=76&amp;vw=ov&amp;df[ds]=dsDisseminateFinalDMZ&amp;df[id]=DSD_SHA%40DF_SHA&amp;df[ag]=OECD.ELS.HD&amp;df[vs]=1.0&amp;pd=2019%2C2022&amp;dq=.A.EXP_HEALTH.PT_B1GQ._T.._T.._T...&amp;ly[rw]=REF_AREA&amp;ly[cl]=TIME_PERIOD&amp;to[TIME_PERIOD]=false" class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-1-base u-btn-1" target="_blank">OECD Health Statistics (database)</a>
         </section>
 
