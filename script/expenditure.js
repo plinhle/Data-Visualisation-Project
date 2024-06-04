@@ -1,6 +1,6 @@
 /* 
 This is expenditure.js
-Divided into 5 parts:
+Divided into 4 parts:
 
 1. Setup and loading data
 2. Calculation of rankings
