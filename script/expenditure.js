@@ -71,22 +71,20 @@ function extractAustraliaData(rankings) {
 
 // Draw Bar and Line Chart combo
 function BarLineChart(data) {
-    // Set dimensions and margins for the graph
-    const margin = {top: 50, right: 150, bottom: 100, left: 150},
-          width = 960 - margin.left - margin.right,
-          height = 650 - margin.top - margin.bottom; 
+// Set dimensions and margins for the graph
+const margin = {top: 50, right: 150, bottom: 100, left: 150},
+      width = 960 - margin.left - margin.right,
+      height = 750 - margin.top - margin.bottom; 
 
-    // Append the svg object to the body of the page
-    const svg = d3.select("#chart1")
-                  .append("svg")
-                  .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // sets the viewBox attribute
-                  .attr("width", "100%")
-                  .attr("height", "100%")
-                  .attr("preserveAspectRatio", "xMidYMid meet")
-                  .append("g")
-                  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");    
+// Append the svg object to the body of the page
+const svg = d3.select("#chart1")
+              .append("svg")
+              .attr("viewBox", `0 0 ${width + margin.left + margin.right} ${height + margin.top + margin.bottom}`) // sets the viewBox attribute
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+              .append("g")
+              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");    // X axis
 
-    // X axis
     const x = d3.scaleBand()
       .range([ 0, width ])
       .domain(data.map(d => d.year))
@@ -107,16 +105,16 @@ function BarLineChart(data) {
       .selectAll("text") // Select all the Y axis (right) text elements
       .style("font-size", "16px");
 
-    svg.append("text") // Add label
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - margin.left + 50) // Adjust the position here
-      .attr("x", 0 - (height / 2))
-      .attr("dy", "0.8em")
-      .style("fill", "black") // Change text color to white
-      .style("text-anchor", "middle")
-      .style("font-size", "24px") // Adjust font size
-      .style("font-weight", "bold") // Make text bold
-      .text("Expenditure (billion USD)");
+ svg.append("text") // Add label
+  .attr("transform", "rotate(-90)")
+  .attr("y", 0 - margin.left + 50) // Adjust the position here
+  .attr("x", 0 - (height / 2))
+  .attr("dy", "0.8em")
+  .style("fill", "black") // Change text color to white
+  .style("text-anchor", "middle")
+  .style("font-size", "24px") // Adjust font size
+  .style("font-weight", "bold") // Make text bold
+  .text("Expenditure (billion USD)");
 
     // Y axis for ranking
     const yRank = d3.scaleLinear()
@@ -128,16 +126,16 @@ function BarLineChart(data) {
       .selectAll("text") // Select all the Y axis (right) text elements
       .style("font-size", "16px");
 
-    svg.append("text") // Add label for Rank
-      .attr("transform", "rotate(-90)")
-      .attr("y", width + margin.right - 60) // Adjust the position here
-      .attr("x", 0 - (height / 2))
-      .attr("dy", "0.8em")
-      .style("fill", "black") // Change text color to white
-      .style("text-anchor", "middle")
-      .style("font-size", "24px") // Adjust font size
-      .style("font-weight", "bold") // Make text bold
-      .text("Rank");
+svg.append("text") // Add label for Rank
+  .attr("transform", "rotate(-90)")
+  .attr("y", width + margin.right - 60) // Adjust the position here
+  .attr("x", 0 - (height / 2))
+  .attr("dy", "0.8em")
+  .style("fill", "black") // Change text color to white
+  .style("text-anchor", "middle")
+  .style("font-size", "24px") // Adjust font size
+  .style("font-weight", "bold") // Make text bold
+  .text("Rank");
 
     // Bars
     svg.selectAll(".bar")
