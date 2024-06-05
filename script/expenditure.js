@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
           const convertedData = data.map(country => {
               const rate = rates[country.Currency]; // convert health expenditure data to local currency
               ['2019', '2020', '2021', '2022'].forEach(year => {
-                  country[year] = parseFloat(country[year].replace(/,/g, '')) * rate; // Convert the string to a number and apply the rate
+                  country[year] = parseFloat(country[year].replace(/,/g, '')) / rate; // Convert the string to a number and apply the rate
               });
               return country;
           });
