@@ -42,39 +42,38 @@
             <h2>Annual Health Expenditure of Australia from 2019 to 2022</h2>
             <div id="chart1"></div>
             <br>
-	<div class="data-source"> 
-	<h1>Data Source: <a href="https://data-explorer.oecd.org/vis?tm=health%20spending&amp;pg=0&amp;hc[Measure]=Expenditure&amp;snb=76&amp;vw=ov&amp;df[ds]=dsDisseminateFinalDMZ&amp;df[id]=DSD_SHA%40DF_SHA&amp;df[ag]=OECD.ELS.HD&amp;df[vs]=1.0&amp;pd=2019%2C2022&amp;dq=.A.EXP_HEALTH.PT_B1GQ._T.._T.._T...&amp;ly[rw]=REF_AREA&amp;ly[cl]=TIME_PERIOD&amp;to[TIME_PERIOD]=false">OECD Health Statistics (database)</a>
- 	</div>
-	</section>
+            <div class="data-source"> 
+                <h1>Data Source: <a href="https://data-explorer.oecd.org/vis?tm=health%20spending&amp;pg=0&amp;hc[Measure]=Expenditure&amp;snb=76&amp;vw=ov&amp;df[ds]=dsDisseminateFinalDMZ&amp;df[id]=DSD_SHA%40DF_SHA&amp;df[ag]=OECD.ELS.HD&amp;df[vs]=1.0&amp;pd=2019%2C2022&amp;dq=.A.EXP_HEALTH.PT_B1GQ._T.._T.._T...&amp;ly[rw]=REF_AREA&amp;ly[cl]=TIME_PERIOD&amp;to[TIME_PERIOD]=false">OECD Health Statistics (database)</a>
+            </div>
+	    </section>
 
         <section id="chart2-section">
             <h2>COVID-19 Impact: Australian Statewise Mortality</h2>
             <div id="map"></div>
             <!-- Add a separate tooltip div for the map -->
             <div id="map-tooltip" class="tooltips" style="display: none;"></div>
-	<div class="data-source"> 
-	<h1>Morality Data Source: <a href="https://www.abs.gov.au/articles/covid-19-mortality-australia-deaths-registered-until-31-january-2024">Australian Bureau of Statistics (ABS)</a></h1>
-	</div>
-	</section>
+            <div class="data-source"> 
+                <h1>Morality Data Source: <a href="https://www.abs.gov.au/articles/covid-19-mortality-australia-deaths-registered-until-31-january-2024">Australian Bureau of Statistics (ABS)</a></h1>
+            </div>
+	    </section>
 
         <section id="chart3-section">
             <h2>COVID-19 Deaths and Vaccinations Over Time in Australia</h2>
-	<div id="bar-charts-container">
-    	<div id="death-bar-chart">
-        <h2 class="chart-title">Death Bar Chart</h2>
-        <!-- Chart content here -->
-    </div>
-    <div id="vaccination-bar-chart">
-        <h2 class="chart-title">Vaccination Bar Chart</h2>
-        <!-- Chart content here -->
-    </div>
-</div>
+            <div id="bar-charts-container">
+                <div id="death-bar-chart">
+                    <h2 class="chart-title">Death Bar Chart</h2>
+                    <!-- Chart content here -->
+                </div>
+                <div id="vaccination-bar-chart">
+                    <h2 class="chart-title">Vaccination Bar Chart</h2>
+                    <!-- Chart content here -->
+                </div>
+            </div>
             <div id="tooltip" style="display: none;"></div>
-        <div class="data-source"> 
-           <h1>Data Source: <a href="https://www.health.gov.au/resources/collections/covid-19-vaccination-rollout-update?language=en">Australian Government Department of Health and Aged Care</a></h1>
-         </div>
-	 </section>
-
+            <div class="data-source"> 
+            <h1>Data Source: <a href="https://www.health.gov.au/resources/collections/covid-19-vaccination-rollout-update?language=en">Australian Government Department of Health and Aged Care</a></h1>
+            </div>
+	    </section>
     </main>
 
     <footer>
@@ -87,8 +86,8 @@
     <!-- Scripts -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="script/StateCodes.js"></script>
-    <script src="./script/expenditure.js"></script>
-    <script src="./script/deaths.js"></script>
+    <script src="script/expenditure.js"></script>
+    <script src="script/deaths.js"></script>
 
     <!-- Tooltip div -->
     <div id="tooltip" style="position: absolute; background: white; padding: 5px; border: 1px solid black; display: none;"></div>

@@ -43,6 +43,10 @@ body {
     font-family: Arial, sans-serif; /* Font family for body */
 }
 
+section {
+    min-height: 100vh;  /* Each section takes at least the full height of the viewport */
+}
+
 /* 
 2. Navbar styles
 */
@@ -143,7 +147,7 @@ main {
 
 /* Home section */
 .home {
-    padding: 8rem 9%; /* Padding */
+    padding: 0rem 9%; /* Padding */
     background-color: #043144; /* Background color */
     color: white; /* Text color */
     display: flex; /* Flex display */
