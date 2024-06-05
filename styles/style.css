@@ -32,9 +32,11 @@ body {
     padding: 0; 
     overflow-y: scroll; 
     background-size: cover; /* Cover the entire background */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+    width: 104%;
 }
 
-body, html {
+html {
     width: 100%; /* Make sure body and html take full width */
     overflow-x: hidden; /* Prevents horizontal scrolling */
 }
@@ -45,6 +47,7 @@ body {
 
 section {
     min-height: 100vh;  /* Each section takes at least the full height of the viewport */
+    box-sizing: border-box; /* Ensures padding is included in the height calculation */;
 }
 
 /* 
@@ -80,6 +83,8 @@ header {
     width: 94.5%; 
     z-index: 1000; /* Z-index */
     border-bottom: 1px solid #575757; /* Border bottom */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .logo {
@@ -114,13 +119,13 @@ main {
 }
 
 .home-img {
-    flex: 1 1 40%; /* Flex properties */
+    flex: 0 1 40%; /* Flex properties */
     box-sizing: border-box; /* Border box */
 }
 
 .content {
     max-width: 600px; /* Maximum width */
-    flex: 1 1 60%; /* Flex properties */
+    flex: 0 1 60%; /* Flex properties */
     padding-left: 20px; /* Padding left */
     display: flex; /* Flex display */
     flex-direction: column; /* Flex direction */
@@ -147,7 +152,7 @@ main {
 
 /* Home section */
 .home {
-    padding: 0rem 9%; /* Padding */
+    padding: 2rem 9%; /* Padding */
     background-color: #043144; /* Background color */
     color: white; /* Text color */
     display: flex; /* Flex display */
@@ -396,5 +401,35 @@ footer span {
     .navbar a {
         margin: 5px 0; /* Margin */
         font-size: 1em; /* Font size */
+    }
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    section {
+        min-width: 100vh;
+    }
+
+    header {
+        flex-direction: column;
+        padding: 10px;  /* Adjusted padding for smaller screens */
+    }
+
+    .navbar {
+        width: 100%;  /* Ensure the navbar takes the full width */
+        text-align: center;  /* Center align the navbar items */
+    }
+
+    .navbar a {
+        display: block;  /* Make each link a block to fill the width */
+        margin: 10px 0;  /* Increase margin for clearer separation */
+    }
+
+    .content h3 {
+        font-size: 2rem; /* Adjust headline size for smaller screens */
+    }
+
+    .content p {
+        font-size: 1rem; /* Adjust paragraph text size */
     }
 }
