@@ -159,7 +159,7 @@ function BarLineChart(data) {
 
   svg.append("text") // Add label for Rank
     .attr("transform", "rotate(-90)")
-    .attr("y", width + margin.right - 60) // Adjust the position here
+    .attr("y", width + margin.right - 60) // Adjust the position
     .attr("x", 0 - (height / 2))
     .attr("dy", "0.8em")
     .style("fill", "black") // Change text color to white
@@ -170,33 +170,34 @@ function BarLineChart(data) {
 
 // Bars
 svg.selectAll(".bar")
-.data(data)
-.enter()
-.append("rect")
-  .attr("x", d => x(d.year))
-  .attr("y", d => yExpenditure(d.expenditure))
-  .attr("width", x.bandwidth())
-  .attr("height", d => height - yExpenditure(d.expenditure))
-  .attr("fill", "grey")
-  .on("mouseover", function(event, d) { //add mouseover effect
-    d3.select(this)
-      .attr("fill", "#44AA99"); // change the color of the bar on hover
-    d3.select(".tooltip") 
-      .html("Expenditure: $" + d.expenditure + "B<br>Rank: " + d.rank)
-      .style("visibility", "visible") // display the tooltip when hover over
-      .style("top", (event.pageY) + "px") // position the tooltip
-      .style("left", (event.pageX) + "px");
-  })
-  .on("mousemove", function(event) {
-    d3.select(".tooltip")
-      .style("top", (event.pageY - 10) + "px")
-      .style("left", (event.pageX + 10) + "px");
-  })
-  .on("mouseout", function() {    //mouseover effect
-    d3.select(this)
-      .attr("fill", "grey"); // reset the color of the bar on mouse out
-    d3.select(".tooltip")
-      .style("visibility", "hidden"); // hide the tooltip on mouse out
+  .data(data)
+  .enter()
+  .append("rect")
+    .attr("x", d => x(d.year))
+    .attr("y", d => yExpenditure(d.expenditure))
+    .attr("width", x.bandwidth())
+    .attr("height", d => height - yExpenditure(d.expenditure))
+    .attr("fill", "#6B99C3")
+    .on("mouseover", function(event, d) { //add mouseover effect
+      d3.select(this)
+        .attr("fill", "#ffa600"); // change the color of the bar on hover
+        //.attr("fill", "#44AA99"); // change the color of the bar on hover
+      d3.select(".tooltip") 
+        .html("Expenditure: $" + d.expenditure + "B<br>Rank: " + d.rank)
+        .style("visibility", "visible") // display the tooltip when hover over
+        .style("top", (event.pageY) + "px") // position the tooltip
+        .style("left", (event.pageX) + "px");
+    })
+    .on("mousemove", function(event) {
+      d3.select(".tooltip")
+        .style("top", (event.pageY - 10) + "px")
+        .style("left", (event.pageX + 10) + "px");
+    })
+    .on("mouseout", function() {    //mouseover effect
+      d3.select(this)
+        .attr("fill", "#6B99C3"); // reset the color of the bar on mouse out
+      d3.select(".tooltip")
+        .style("visibility", "hidden"); // hide the tooltip on mouse out
 });
 
 // Line
@@ -204,30 +205,22 @@ const line = d3.line()
 .x(d => x(d.year) + x.bandwidth() / 2)
 .y(d => yRank(d.rank));
 
-// Extend the line across the chart
-svg.append("line")
-.attr("x1", x(data[0].year)) //set starting point
-.attr("y1", yRank(data[0].rank))
-.attr("x2", x(data[data.length - 1].year) + x.bandwidth())
-.attr("y2", yRank(data[data.length - 1].rank))
-.attr("stroke", "#FEB8BB")
-.attr("stroke-width", 1.5);
-
+// Draw the path connecting the ranking points
 svg.append("path")
-.datum(data)
-.attr("fill", "none") // set color to none
-.attr("stroke", "#FEB8BB")
-.attr("stroke-width", 1.5) // stroke width
-.attr("d", line);
+  .datum(data)
+  .attr("fill", "none") // set color to none
+  .attr("stroke", "#ee4f5b")
+  .attr("stroke-width", 1.5) // stroke width
+  .attr("d", line);
 
 svg.selectAll(".dot")
-.data(data)
-.enter().append("circle")
-.attr("class", "dot")
-.attr("cx", d => x(d.year) + x.bandwidth() / 2) // sets x-coordinate to the center
-.attr("cy", d => yRank(d.rank))
-.attr("r", 5) // radius of the circle
-.style("fill", "#F05F80");
+  .data(data)
+  .enter().append("circle")
+  .attr("class", "dot")
+  .attr("cx", d => x(d.year) + x.bandwidth() / 2) // sets x-coordinate to the center
+  .attr("cy", d => yRank(d.rank))
+  .attr("r", 5) // radius of the circle
+  .style("fill", "#93357f");
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
