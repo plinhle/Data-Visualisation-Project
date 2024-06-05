@@ -573,31 +573,31 @@ svgVaccinationBar.selectAll("rect")
 
 // Add labels to each bar in the vaccination chart
 svgVaccinationBar.selectAll("text.bar-label")
-.data(vaccinationValues) // Bind data
-.enter()
-.append("text")
-.attr("class", "bar-label") // Add class for styling
-.attr("x", function (d, i) { return xScaleVaccination(years[i]) + xScaleVaccination.bandwidth() / 2; }) // X position
-.attr("y", function (d) { return yScaleVaccination(d) - 5; }) // Y position
-.attr("text-anchor", "middle") // Center text
-.text(function (d) { return d.toFixed(2) + "M"; }) // Text content with million unit
-.style("fill", "black") // Text color
-.style("font-size", "18px"); // Font size
+    .data(vaccinationValues) // Bind data
+    .enter()
+    .append("text")
+    .attr("class", "bar-label") // Add class for styling
+    .attr("x", function (d, i) { return xScaleVaccination(years[i]) + xScaleVaccination.bandwidth() / 2; }) // X position
+    .attr("y", function (d) { return yScaleVaccination(d) - 5; }) // Y position
+    .attr("text-anchor", "middle") // Center text
+    .text(function (d) { return d.toFixed(2) + "M"; }) // Text content with million unit
+    .style("fill", "black") // Text color
+    .style("font-size", "18px"); // Font size
 
 // Add x-axis to the vaccination bar chart
 svgVaccinationBar.append("g")
-.attr("transform", "translate(0," + barHeight + ")") // Position at the bottom of the chart
-.call(d3.axisBottom(xScaleVaccination)) // Call bottom axis
-.selectAll("text")
-.style("font-size", "18px") // Increase font size for x-axis labels
-.style("fill", "black"); // Text color
+    .attr("transform", "translate(0," + barHeight + ")") // Position at the bottom of the chart
+    .call(d3.axisBottom(xScaleVaccination)) // Call bottom axis
+    .selectAll("text")
+    .style("font-size", "18px") // Increase font size for x-axis labels
+    .style("fill", "black"); // Text color
 
 // Add y-axis to the vaccination bar chart
 svgVaccinationBar.append("g")
-.call(d3.axisLeft(yScaleVaccination)) // Call left axis
-.selectAll("text")
-.style("font-size", "18px") // Increase font size for y-axis labels
-.style("fill", "black"); // Text color
+    .call(d3.axisLeft(yScaleVaccination)) // Call left axis
+    .selectAll("text")
+    .style("font-size", "18px") // Increase font size for y-axis labels
+    .style("fill", "black"); // Text color
 }
 
 createDefaultBarChart(deathData, vaccinationData);

@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // Load data for the 1st chart
   d3.json("script/exchangeRates2015.json").then(function(rates) {
       // Convert the currency
-      d3.json("script/healthExpenditure.json").then(function(data) {
+      d3.json("dataset/healthExpenditure.json").then(function(data) {
           const convertedData = data.map(country => {
               const rate = rates[country.Currency]; // convert health expenditure data to local currency
               ['2019', '2020', '2021', '2022'].forEach(year => {
