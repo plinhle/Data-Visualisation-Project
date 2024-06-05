@@ -18,13 +18,13 @@ Divided into 4 parts:
 // Ensure the DOM is fully loaded before running the D3 code
 document.addEventListener("DOMContentLoaded", function() {
   // Load data for the 1st chart
-  d3.json("script/exchangeRates2015.json").then(function(rates) {
+  d3.json("script/conversionRates2015.json").then(function(rates) {
       // Convert the currency
       d3.json("dataset/healthExpenditure.json").then(function(data) {
           const convertedData = data.map(country => {
               const rate = rates[country.Currency]; // convert health expenditure data to local currency
               ['2019', '2020', '2021', '2022'].forEach(year => {
-                  country[year] = parseFloat(country[year].replace(/,/g, '')) / rate; // Convert the string to a number and apply the rate
+                  country[year] = (parseFloat(country[year]) / rate).toFixed(2); // Convert the string to a number and apply the rate
               });
               return country;
           });

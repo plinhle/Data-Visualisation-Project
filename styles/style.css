@@ -20,6 +20,10 @@ Divided into 11 parts:
 1. Global styles 
 */
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     color: black; /* Text color */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font family */
@@ -100,15 +104,6 @@ main {
     background-position: center; /* Center position */
 }
 
-.home {
-    display: flex; 
-    flex-wrap: wrap; /* Wrap items */
-    justify-content: space-around; /* Space around items */
-    align-items: center; /* Center align items */
-    padding: 20px; /* Padding */
-    background: #f9f9f9; /* Background color */
-}
-
 .home-img img {
     max-width: 100%; /* Maximum width */
     width: 100%; /* Width */
@@ -155,6 +150,7 @@ main {
     align-items: center; /* Center align items */
     flex-wrap: wrap; /* Wrap items */
     gap: 1.5rem; /* Gap */
+    justify-content: space-around; /* Space around items */
 }
 
 .home.home-img {
