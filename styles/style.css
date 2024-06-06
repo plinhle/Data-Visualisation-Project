@@ -1,152 +1,145 @@
-/* styles.css */
-body{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #333333; /* Dark gray background */
-    color: #E0E0E0; /* Light gray text for readability */
-    line-height: 1.6;
+/* 
+This is style.css
+Divided into 11 parts:
+
+1. Global styles
+2. Navbar styles
+3. Header styles
+4. Main content styles
+5. Home section styles
+6. Chart section styles
+7. Section styles
+8. Tooltip styles
+9. Additional styles
+10. Footer styles
+11. Media queries for responsive design
+
+*/
+
+/*
+1. Global styles 
+*/
+
+html {
+    scroll-behavior: smooth;
+    width: 100%; /* Make sure body and html take full width */
+}
+
+body {
+    color: black; /* Text color */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font family */
+    line-height: 1.6; /* Line height for better readability */
+    margin: 0; 
+    padding: 0; 
+    overflow-y: scroll; 
+    background-size: cover; /* Cover the entire background */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+    /* Background image */
+    background-image: url('../images/image1.jpg');
+    background-position: center center; /* Center the background image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Cover the entire area of the body */
+    background-attachment: fixed;
     margin: 0;
     padding: 0;
-    overflow-y: scroll; /* Ensures the ability to scroll */
+    height: 100%; /* Full height to ensure it covers full viewport */
+    width: 100%; /* Full width */
+    overflow-x: hidden; /* Hide any horizontal overflow */
 }
 
-main{
-    width: 85%;
-    margin: 20px auto;
-    padding: 20px;
+body {
+    font-family: Arial, sans-serif; /* Font family for body */
 }
 
-section{
-    background-color: #445F3B; /* Dark green for sections */
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px; /* Rounded corners for sections */
+section {
+    min-height: 100vh;  /* Each section takes at least the full height of the viewport */
+    box-sizing: border-box; /* Ensures padding is included in the height calculation */;
 }
 
-/* Header styling */
+/* 
+2. Navbar styles
+*/
 
-header{
-    display: flex;
-    justify-content: space-between; /* This will space out the logo and the navbar */
-    align-items: center; /* This will vertically center the logo and navbar links */
-    padding: 1rem 10%; /* Adjust padding as needed */
-    color: #E0E0E0;
-    border-bottom: 1px solid #575757; /* Separate the footer */
-}
-
-.logo {
-    color: #445F3B; /* Sets the color of the logo text */
-    font-size: 1.5em; /* Sets the size of the logo */
-    text-decoration: none; /* Removes underline from the logo */
-    display: flex;
-    align-items: center;
-}
-
-.logo i {
-    margin-right: 0.5rem; /* Adds space between the icon and text */
-}
-
+/* Navbar */
 .navbar a {
-    color: #E0E0E0;
-    text-decoration: none;
-    margin: 0 10px; /* Adjust the spacing between nav links */
-    font-size: 1.1em; /* Adjust the font size as needed */
-    transition: color 0.3s;
+    color: black; 
+    text-decoration: none; 
+    margin: 0 10px; /* Adjust spacing between nav links */
+    font-size: 1.1em; /* Font size */
+    transition: color 0.3s; /* Smooth transition */
 }
 
 .navbar a:hover {
-    color: #445F3B; /* Changes the color when hovered */
+    color: #445F3B; /* Change color on hover */
 }
 
-/* Responsive design adjustments */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        padding: 10px;
-    }
+/* 
+3. Header styles
+*/
 
-    .navbar {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        align-items: center; /* Center alignment for nav links */
-    }
-
-    .navbar a {
-        padding: 10px;
-        text-align: center;
-        width: 100%; /* Full width links for easier touch access */
-        border-bottom: 1px solid #445F3B; /* Adds a subtle separator between links */
-    }
-
-    .logo {
-        margin-bottom: 15px; /* Adds some space between the logo and navbar */
-    }
-}
-
-@media (max-width: 480px) {
-    .logo {
-        font-size: 1.2em; /* Smaller logo font size for smaller screens */
-    }
-
-    .navbar a {
-        font-size: 0.9em; /* Smaller font size for nav links on very small screens */
-    }
-}
-
-/* Footer styling */
-footer{
-    text-align: center;
-    padding: 5px 20px; /* Reduced padding for a smaller footer */
-    color: #ffffff;
-    font-size: 0.8em; /* Smaller font size */
-    left: 0;
+/* Header styling */
+header {
+    position: fixed; 
+    display: flex; 
+    justify-content: space-between; /* Space between items */
+    align-items: center; 
+    background: rgba(244, 244, 244, 0.8); /* Background color */
+    padding: 10px 31px; 
+    top: 0; 
+    width: 94.5%; 
+    z-index: 1000; /* Z-index */
+    border-bottom: 1px solid #575757; /* Border bottom */
     width: 100%;
-    border-radius: 5px; /* Rounded corners for the footer */
-    border-top: 1px solid #575757; /* Separate the footer */
+    box-sizing: border-box;
 }
 
-footer span{
-    color: #445F3B;
-    font-weight: bold;
+.logo {
+    color: #445F3B; /* Logo color */
+    font-size: 1.5em; /* Logo font size */
+    text-decoration: none; /* Remove underline */
+    display: flex; 
+    align-items: center; 
 }
 
-.home{
-    padding: 2rem 9%;
-    background-color: #333333;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1.5rem;
+.logo i {
+    margin-right: 0.5rem; /* Margin between icon and text */
 }
 
-.home .home-img{ 
-    flex: 1 1 40%;
+/* 
+4. Main content styles
+*/
+
+/* Main page background */
+main {
+    width: 90%; 
+    margin: 20px auto; 
+    padding: 20px; 
+    background-size: cover; 
+    background-repeat: no-repeat; /* No repeat */
+    background-position: center; /* Center position */
 }
 
-.home .home-img img{
-    width: 100%;
+.home-img img {
+    max-width: 100%; /* Maximum width */
+    width: 100%; /* Width */
 }
 
-.home .content{
-    flex: 1 1 50%;
-    padding-left: 2rem;
+.home-img {
+    flex: 0 1 40%; /* Flex properties */
+    box-sizing: border-box; /* Border box */
 }
 
-.home .content h3{
-    font-size: 3rem;
-    line-height: 1.8;
-    text-shadow: var(--text-shadow);
-    padding: 1rem 0;
-}
-
-.home .content p{
-    font-size: 1.5 rem;
-    line-height: 1.8;
-    padding: 1rem 0;
+.content {
+    max-width: 600px; /* Maximum width */
+    flex: 0 1 60%; /* Flex properties */
+    padding-left: 20px; /* Padding left */
+    display: flex; /* Flex display */
+    flex-direction: column; /* Flex direction */
+    justify-content: center; /* Center align content */
 }
 
 .btn {
-    background-color: #445F3B; /* Button background */
+    background-color: #D1AB7D; /* Button background */
     color: #ffffff; /* Button text color */
     padding: 10px 20px; /* Button padding */
     text-decoration: none; /* Removes underline from link */
@@ -156,34 +149,283 @@ footer span{
 }
 
 .btn:hover {
-    background-color: #567f53; /* Lighter green for hover */
+    background-color: #96785B; /* Lighter green for hover */
 }
 
-#chart1-section h2, #chart2-section h2, #chart3-section h2 {
-    align-items: center;
+/* 
+5. Home section styles
+*/
+
+/* Home section */
+.home {
+    padding: 2rem 9%; /* Padding */
+    background-color: #043144; /* Background color */
+    color: white; /* Text color */
+    display: flex; /* Flex display */
+    align-items: center; /* Center align items */
+    flex-wrap: wrap; /* Wrap items */
+    gap: 1.5rem; /* Gap */
+    justify-content: space-around; /* Space around items */
+}
+
+.home.home-img {
+    flex: 1 1 40%; /* Flex properties */
+}
+
+.home.home-img img {
+    width: 100%; /* Width */
+}
+
+.home.content {
+    flex: 1 1 50%; /* Flex properties */
+    padding-left: 2rem; /* Padding left */
+}
+
+.content h3 {
+    font-size: 3rem; /* Font size */
+    line-height: 1.8; /* Line height */
+    text-shadow: var(--text-shadow); /* Text shadow */
+    padding: 1rem 0; /* Padding */
+    margin: 0; /* Margin */
+}
+
+.home.content p {
+    font-size: 1.5rem; /* Font size */
+    line-height: 1.8; /* Line height */
+    padding: 0; /* Padding */
+}
+
+.content p {
+    font-size: 22px;
+    color: #fff;
+}
+
+.data-source {
     text-align: center;
-}
-
-#chart1-section p, #chart2-section p, #chart3-section p {
-    text-align: center;
-    font-size: 0.8em; /* Smaller font size */
+    margin-top: 20px; /* Adjust as needed */
 }
 
 
+/* 
+6. Chart section styles
+*/
+
+/* Chart sections */
+#chart3-section {
+    display: flex; /* Flex display */
+    flex-direction: column; /* Flex direction */
+    align-items: center; /* Center align items */
+}
+
+#bar-charts-container {
+    display: flex; /* Flex display */
+    flex-wrap: wrap; /* Wrap items */
+    justify-content: space-between; /* Space between items */
+    width: 100%; /* Full width */
+    max-width: 1200px; /* Maximum width */
+}
+
+#death-bar-chart,
+#vaccination-bar-chart {
+    width: 48%; /* Width */
+    box-sizing: border-box; /* Border box */
+}
+
+.chart-title {
+    fill: white; /* Fill color */
+    font-size: 20px; /* Font size */
+    text-anchor: middle; /* Text anchor */
+}
+
+.axis text,
+.axis.tick text {
+    font-size: 16px; /* Font size */
+    fill: black!important; /* Fill color */
+}
+
+.axis.domain,
+.axis line {
+    stroke: black; /* Stroke color */
+    stroke-width: 2; /* Stroke width */
+}
+
+.axis-label {
+    font-size: 18px; /* Font size */
+    fill: black!important; /* Fill color */
+    font-weight: bold; /* Font weight */
+}
+
+.tooltip {
+    position: absolute;
+    visibility: hidden; 
+    background-color: #FFFFE0; 
+    border: 1px solid #000; 
+    padding: 8px; 
+    font-size: 16px; 
+    color: black; 
+}
+
+/* 
+7. Section styles
+*/
+
+#chart1-section,
+#chart2-section,
+#chart3-section {
+    margin-bottom: 40px; 
+    background-color: #f4f4f4; 
+    padding: 20px;
+}
+
+#chart1-section h2,
+#chart2-section h2,
+#chart3-section h2 {
+    text-align: center; /* Text alignment */
+    color: black; /* Text color */
+}
+
+#chart1-section p,
+#chart2-section p,
+#chart3-section p {
+    text-align: center; 
+    font-size: 0.8em; 
+}
+
+/* Centering the first chart */
+#chart1 {
+    display: flex; /* Flex display */
+    justify-content: center; /* Center justify content */
+    align-items: center; /* Center align items */
+    height: 80vh; /* Height */
+}
+
+/* 
+8. Tooltip styles
+*/
+
+/* Tooltip styling for first chart */
+.tooltip {
+    position: absolute; /* Position */
+    visibility: hidden; /* Visibility */
+    background-color: #FFFFE0; /* Background color */
+    border: 1px solid #000; /* Border */
+    padding: 8px; /* Padding */
+}
+
+/* Tooltip styling for second chart */
+#tooltip {
+    position: absolute; 
+    display: none; 
+    padding: 10px; 
+    background-color: white; /* Background color */
+    border: 1px solid black; /* Border */
+    border-radius: 5px; 
+    pointer-events: none; /* Pointer events */
+    font-size: 16px; /* Font size */
+}
+
+/* 
+9. Additional styles
+*/
+
+/* Borders for charts */
+#chart1,
+#death-bar-chart,
+#vaccination-bar-chart,
+#map {
+    border: 2px solid black; /* Border */
+}
+
+/* Map styling */
+#map {
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100%; 
+}
+
+svg {
+    display: block; /* Block display */
+    margin: auto; /* Margin */
+}
+
+/* 
+10. Footer styles
+*/
+
+/* Footer styling */
+footer {
+    text-align: center; /* Text alignment */
+    padding: 5px 20px; /* Padding */
+    color: #ffffff; /* Text color */
+    font-size: 1em;
+    left: 0; /* Left */
+    width: 100%; /* Full width */
+    border-radius: 5px; /* Border radius */
+    border-top: 1px solid #575757; /* Border top */
+    background-color: #043144; /* Background color */
+}
+
+footer span {
+    color: #445F3B; /* Text color */
+    font-weight: bold; /* Font weight */
+}
+
+/* 
+11. Media queries for responsive design
+*/
+
+/* Responsive design adjustments */
 @media (max-width: 768px) {
-    .chart1-section {
-        width:100%;
-        height: auto;
+    #bar-charts-container {
+        flex-direction: column; 
+        align-items: center; 
     }
 
-    svg {
-        width: 100%; 
-        height:auto;
+    #death-bar-chart,
+    #vaccination-bar-chart {
+        width: 100%; /* Full width */
+        margin-bottom: 20px; /* Margin bottom */
+    }
+
+    header {
+        flex-direction: column;
+        align-items: center; 
+        padding: 10px; /* Padding */
+    }
+
+    .navbar a {
+        margin: 5px 0; /* Margin */
+        font-size: 1em; /* Font size */
     }
 }
 
-.chart-container svg {
-    width: 100%;
-    height: auto;
-}
+/* Responsiveness */
+@media (max-width: 768px) {
+    section {
+        min-width: 100vh;
+    }
 
+    header {
+        flex-direction: column;
+        padding: 10px;  /* Adjusted padding for smaller screens */
+    }
+
+    .navbar {
+        width: 100%;  /* Ensure the navbar takes the full width */
+        text-align: center;  /* Center align the navbar items */
+    }
+
+    .navbar a {
+        display: block;  /* Make each link a block to fill the width */
+        margin: 10px 0;  /* Increase margin for clearer separation */
+    }
+
+    .content h3 {
+        font-size: 2rem; /* Adjust headline size for smaller screens */
+    }
+
+    .content p {
+        font-size: 1rem; /* Adjust paragraph text size */
+    }
+}
