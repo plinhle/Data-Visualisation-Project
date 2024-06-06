@@ -413,11 +413,11 @@ function updateBarCharts(deathState, vaccinationState, stateName) {
 
     // Add x-axis to the vaccination bar chart
     svgVaccinationBar.append("g")
-    .attr("transform", "translate(0," + barHeight + ")") // Position at the bottom of the chart
-    .call(d3.axisBottom(xScaleVaccination)) // Call bottom axis
-    .selectAll("text")
-    .style("font-size", "18px") // Increase font size for x-axis labels
-    .style("fill", "black"); // Text color
+        .attr("transform", "translate(0," + barHeight + ")") // Position at the bottom of the chart
+        .call(d3.axisBottom(xScaleVaccination)) // Call bottom axis
+        .selectAll("text")
+        .style("font-size", "18px") // Increase font size for x-axis labels
+        .style("fill", "black"); // Text color
 
 // Add y-axis to the vaccination bar chart
 svgVaccinationBar.append("g")
