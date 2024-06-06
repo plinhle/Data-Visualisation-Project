@@ -233,7 +233,7 @@ Promise.all([
 
     function showTooltip(event, d) {
     	const stateName = d.properties.name;
-   	const stateCode = StateCodes[stateName];
+   	    const stateCode = StateCodes[stateName];
     	const totalDeaths = deathTotals[stateCode];
     	const totalVaccinations = (vaccinationTotals[stateCode] / 1000000).toFixed(2); // Convert to millions and format
     	const tooltip = d3.select("#tooltip");
@@ -303,12 +303,34 @@ function updateBarCharts(deathState, vaccinationState, stateName) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // Translate the group element
 
     // Add chart title
+    // svgDeathBar.append("text")
+    //     .attr("x", (years.length * barWidth) / 2) // Position in the middle of the chart
+    //     .attr("y", -10 - margin.top / 2) // Position above the chart
+    //     .attr("text-anchor", "middle") // Center text
+    //     .attr("class", "chart-title") // Add class for styling
+    //     .text(stateName + " - Death Cases Over Years") // Chart title
+    //     .style("font-size", "19px") // Font size
+    //     .style("font-weight", "bold") // Font weight
+    //     .style("fill", "black"); // Text color
+
+    // Add first line of the chart title for the state name
     svgDeathBar.append("text")
         .attr("x", (years.length * barWidth) / 2) // Position in the middle of the chart
         .attr("y", -10 - margin.top / 2) // Position above the chart
         .attr("text-anchor", "middle") // Center text
+        .attr("class", "chart-subtitle") // Add class for styling
+        .text("Death Cases Over Years") // Text for the vaccination data
+        .style("font-size", "19px") // font size 
+        .style("font-weight", "bold") // font weight
+        .style("fill", "black"); // Text color
+    
+    // Add second line of the chart title for the vaccination data description
+    svgDeathBar.append("text")
+        .attr("x", (years.length * barWidth) / 2) // Position in the middle of the chart
+        .attr("y", 10 - margin.top / 2) // Position slightly below the first line
+        .attr("text-anchor", "middle") // Center text
         .attr("class", "chart-title") // Add class for styling
-        .text(stateName + " - Death Cases Over Years") // Chart title
+        .text(stateName) // Text for the state name
         .style("font-size", "19px") // Font size
         .style("font-weight", "bold") // Font weight
         .style("fill", "black"); // Text color
@@ -377,15 +399,37 @@ function updateBarCharts(deathState, vaccinationState, stateName) {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")"); // Translate the group element
 
     // Add chart title
-    svgVaccinationBar.append("text")
-        .attr("x", (years.length * barWidth) / 2) // Position in the middle of the chart
-        .attr("y", -10 - margin.top / 2) // Position above the chart
-        .attr("text-anchor", "middle") // Center text
-        .attr("class", "chart-title") // Add class for styling
-        .text(stateName + " - Vaccination Doses Over Years (Millions)") // Chart title
-        .style("font-size", "19px") // Font size
-        .style("font-weight", "bold") // Font weight
-        .style("fill", "black"); // Text color
+    // svgVaccinationBar.append("text")
+    //     .attr("x", (years.length * barWidth) / 2) // Position in the middle of the chart
+    //     .attr("y", -10 - margin.top / 2) // Position above the chart
+    //     .attr("text-anchor", "middle") // Center text
+    //     .attr("class", "chart-title") // Add class for styling
+    //     .text(stateName + " - Vaccination Doses Over Years (Millions)") // Chart title
+    //     .style("font-size", "19px") // Font size
+    //     .style("font-weight", "bold") // Font weight
+    //     .style("fill", "black"); // Text color
+
+        // Add first line of the chart title for the state name
+        svgVaccinationBar.append("text")
+            .attr("x", (years.length * barWidth) / 2) // Position in the middle of the chart
+            .attr("y", -10 - margin.top / 2) // Position above the chart
+            .attr("text-anchor", "middle") // Center text
+            .attr("class", "chart-subtitle") // Add class for styling
+            .text("Vaccination Doses Over Years (Millions)") // Text for the vaccination data
+            .style("font-size", "19px") // font size
+            .style("font-weight", "bold") // font weights
+            .style("fill", "black"); // Text color
+    
+        // Add second line of the chart title for the vaccination data description
+        svgVaccinationBar.append("text")
+            .attr("x", (years.length * barWidth) / 2) // Position in the middle of the chart
+            .attr("y", 10 - margin.top / 2) // Position slightly below the first line
+            .attr("text-anchor", "middle") // Center text
+            .attr("class", "chart-title") // Add class for styling
+            .text(stateName) // Text for the state name
+            .style("font-size", "19px") // Font size
+            .style("font-weight", "bold") // Font weight
+            .style("fill", "black"); // Text color
 
     // Append rectangles for the vaccination bar chart
     svgVaccinationBar.selectAll("rect")
