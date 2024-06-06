@@ -172,13 +172,13 @@ Promise.all([
             return path.centroid(d)[1]; // Set y position to centroid of state
         })
         .attr("text-anchor", "middle") // Center text
-	.attr("dx", "-0.5em") // Adjust text position horizontally
+	    .attr("dx", "-0.5em") // Adjust text position horizontally
         .attr("dy", "-0.30em") // Adjust text position vertically
         .text(function (d) {
             return StateCodes[d.properties.name]; // Add state code as text label
         })
         .attr("class", "state-label") // Add class for styling
-	.style("font-size", "14px")
+	    .style("font-size", "14px")
         .style("font-weight", "bold") // Set font weight
         .style("fill", "white"); // Set font color
 
